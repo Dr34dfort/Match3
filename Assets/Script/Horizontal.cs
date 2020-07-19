@@ -19,29 +19,25 @@ public class Horizontal : MonoBehaviour
         sphere.chainCountHorizontal = sphere.chainedSpheres.Count;
         if (sphere.chainCountHorizontal >= 2)
         {
-            /*foreach (Sphere sp in sphere.chainedSpheres)
+            foreach (Sphere sp in sphere.chainedSpheres)
             {
                 sp.chainCountHorizontal = sphere.chainCountHorizontal;
-            }*/
-            //gp.HorizontalCheck(sphere.coordX, sphere.coordY, sphere.color);
+            }
+            sphere.chained = true;
         }
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Sphere" && sphere.color == other.GetComponent<Sphere>().color && Mathf.Abs(other.GetComponent<Sphere>().vel) <= 0.1f && other.GetComponent<Sphere>().gotChecked == false)
+        if (other.tag == "Sphere" && sphere.color == other.GetComponent<Sphere>().color && Mathf.Abs(other.GetComponent<Sphere>().vel) <= 0.1f && sphere.chained == false)
         {
             sameCol = true;
             sphere.chainedSpheres.Add(other.GetComponent<Sphere>());
             other.GetComponent<Sphere>().Checker();
         }
-        if (other.tag == "Sphere" && sphere.color != other.GetComponent<Sphere>().color)
-        {
-            sameCol = false;
-        }
     }
     public void OnTriggerExit(Collider other)
     {
 
-        sphere.gotChecked = false;
+        //sphere.gotChecked = false;
     }
 }

@@ -51,21 +51,19 @@ public class Sphere : MonoBehaviour
                 this.GetComponent<Sphere>().chainedSpheres.Clear();
                 this.GetComponent<Sphere>().chainedSpheres.RemoveAll(x => x == null);
                 this.GetComponent<Sphere>().chainCountHorizontal = 0;
-                gp.spheres[coordX, coordY] = null;
             }
             else 
             { 
                 left.SetActive(true); 
                 right.SetActive(true);
-                gp.spheres[coordX, coordY] = this;
             }
         }
         else
         {
-            /*foreach (Sphere sp in chainedSpheres)
+            foreach (Sphere sp in chainedSpheres)
             {
                 sp.chained = true;
-            }*/
+            }
             gameObject.GetComponent<MeshRenderer>().material = Resources.Load("1", typeof(Material)) as Material;
             Destroy(this.gameObject);
         }
@@ -93,7 +91,7 @@ public class Sphere : MonoBehaviour
                 sp.chained2 = true;
             }
             gameObject.GetComponent<MeshRenderer>().material = Resources.Load("1", typeof(Material)) as Material;
-            //Destroy(this.gameObject);
+            Destroy(this.gameObject);
 
         }
     }
@@ -120,7 +118,7 @@ public class Sphere : MonoBehaviour
         left.SetActive(true);
         up.SetActive(true);
         down.SetActive(true);
-        gotChecked = true;
+        //gotChecked = true;
         yield return new WaitForSeconds(0.1f);
     }
 }
