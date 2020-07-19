@@ -6,8 +6,8 @@ using UnityEngine;
 public class Horizontal : MonoBehaviour
 {
     public Sphere sphere;
-    public bool sameCol;
     public Gameplay gp = new Gameplay();
+    public Bullet bullet = new Bullet();
     void Start()
     {
     }
@@ -19,25 +19,23 @@ public class Horizontal : MonoBehaviour
         sphere.chainCountHorizontal = sphere.chainedSpheres.Count;
         if (sphere.chainCountHorizontal >= 2)
         {
-            foreach (Sphere sp in sphere.chainedSpheres)
-            {
-                sp.chainCountHorizontal = sphere.chainCountHorizontal;
-            }
-            sphere.chained = true;
+            Bullet bulletR = Instantiate(bullet, new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z), Quaternion.identity);
+            bulletR.color = sphere.color;
+            bulletR.X = 10;
+            Bullet bulletL = Instantiate(bullet, new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z), Quaternion.identity);
+            bulletL.color = sphere.color;
+            bulletL.X = -10;
         }
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Sphere" && sphere.color == other.GetComponent<Sphere>().color && Mathf.Abs(other.GetComponent<Sphere>().vel) <= 0.1f && sphere.chained == false)
+        if (other.tag == "Sphere" && sphere.color == other.GetComponent<Sphere>().color && Mathf.Abs(other.GetComponent<Sphere>().vel) <= 0.1f)
         {
-            sameCol = true;
             sphere.chainedSpheres.Add(other.GetComponent<Sphere>());
             other.GetComponent<Sphere>().Checker();
         }
     }
     public void OnTriggerExit(Collider other)
     {
-
-        //sphere.gotChecked = false;
     }
 }

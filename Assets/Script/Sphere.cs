@@ -14,7 +14,6 @@ public class Sphere : MonoBehaviour
     public bool started = false;
     public int chainCountHorizontal = 0;
     public int chainCountVertical = 0;
-    public Vector3 vect;
     private int maxChainHorizontal = 0;
     private int maxChainVertical = 0;
     public bool grounded = false;
@@ -41,58 +40,26 @@ public class Sphere : MonoBehaviour
     {
         coordX = Mathf.RoundToInt(this.transform.position.x);
         coordY = Mathf.RoundToInt(this.transform.position.y);
-        if (chained == false)
+        vel = Mathf.Round(rb.velocity.y);
+        if (Mathf.Abs(vel) > 0.1f)
         {
-            vel = Mathf.Round(rb.velocity.y);
-            if (Mathf.Abs(vel) > 0.1f)
-            {
-                left.SetActive(false);
-                right.SetActive(false);
-                this.GetComponent<Sphere>().chainedSpheres.Clear();
-                this.GetComponent<Sphere>().chainedSpheres.RemoveAll(x => x == null);
-                this.GetComponent<Sphere>().chainCountHorizontal = 0;
-            }
-            else 
-            { 
-                left.SetActive(true); 
-                right.SetActive(true);
-            }
+            left.SetActive(false);
+            right.SetActive(false);
+            this.GetComponent<Sphere>().chainedSpheres.Clear();
+            this.GetComponent<Sphere>().chainedSpheres.RemoveAll(x => x == null);
+            this.GetComponent<Sphere>().chainCountHorizontal = 0;
+            up.SetActive(false);
+            down.SetActive(false);
+            this.GetComponent<Sphere>().chainedSpheres2.Clear();
+            this.GetComponent<Sphere>().chainedSpheres2.RemoveAll(x => x == null);
+            this.GetComponent<Sphere>().chainCountVertical = 0;
         }
         else
         {
-            foreach (Sphere sp in chainedSpheres)
-            {
-                sp.chained = true;
-            }
-            gameObject.GetComponent<MeshRenderer>().material = Resources.Load("1", typeof(Material)) as Material;
-            Destroy(this.gameObject);
-        }
-        if (chained2 == false)
-        {
-            vel = Mathf.Round(rb.velocity.y);
-            if (Mathf.Abs(vel) > 0.1f)
-            {
-                up.SetActive(false);
-                down.SetActive(false);
-                this.GetComponent<Sphere>().chainedSpheres2.Clear();
-                this.GetComponent<Sphere>().chainedSpheres2.RemoveAll(x => x == null);
-                this.GetComponent<Sphere>().chainCountVertical = 0;
-            }
-            else
-            {
-                up.SetActive(true);
-                down.SetActive(true);
-            }
-        }
-        else
-        {
-            foreach (Sphere sp in chainedSpheres2)
-            {
-                sp.chained2 = true;
-            }
-            gameObject.GetComponent<MeshRenderer>().material = Resources.Load("1", typeof(Material)) as Material;
-            Destroy(this.gameObject);
-
+            left.SetActive(true);
+            right.SetActive(true);
+            up.SetActive(true);
+            down.SetActive(true);
         }
     }
     public void Checker()
@@ -101,14 +68,9 @@ public class Sphere : MonoBehaviour
         {
             right.SetActive(false);
             left.SetActive(false);
-            up.SetActive(false);
-            down.SetActive(false);
             this.GetComponent<Sphere>().chainedSpheres.Clear();
             this.GetComponent<Sphere>().chainedSpheres.RemoveAll(x => x == null);
             this.GetComponent<Sphere>().chainCountHorizontal = 0;
-            this.GetComponent<Sphere>().chainedSpheres2.Clear();
-            this.GetComponent<Sphere>().chainedSpheres2.RemoveAll(x => x == null);
-            this.GetComponent<Sphere>().chainCountVertical = 0;
             Wait();
         }
     }
@@ -116,9 +78,31 @@ public class Sphere : MonoBehaviour
     {
         right.SetActive(true);
         left.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+    }
+    public void Checker2()
+    {
+        if (chained2 == false)
+        {
+            up.SetActive(false);
+            down.SetActive(false);
+            this.GetComponent<Sphere>().chainedSpheres2.Clear();
+            this.GetComponent<Sphere>().chainedSpheres2.RemoveAll(x => x == null);
+            this.GetComponent<Sphere>().chainCountVertical = 0;
+            Wait2();
+        }
+    }
+    IEnumerator Wait2()
+    {
         up.SetActive(true);
         down.SetActive(true);
-        //gotChecked = true;
         yield return new WaitForSeconds(0.1f);
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag=="Bullet" && (other.GetComponent<Bullet>().color == color))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -270,6 +270,7 @@ MonoBehaviour:
   sphere: {fileID: 7752743240271454225}
   sameCol: 0
   gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
+  bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &919189933629296029
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +283,7 @@ GameObject:
   - component: {fileID: 3712712557227240878}
   - component: {fileID: 4564122760976249236}
   - component: {fileID: 2694441333787805953}
+  - component: {fileID: 2775532444313484073}
   m_Layer: 0
   m_Name: up
   m_TagString: Up
@@ -363,6 +365,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2775532444313484073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919189933629296029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e437ab2c3485ba947b4e13c56ff105ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphere: {fileID: 7752743240271454225}
+  sameCol: 0
+  gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
+  bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &1150372481060777686
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +393,7 @@ GameObject:
   - component: {fileID: 7972182972276872368}
   - component: {fileID: 4791093380594853690}
   - component: {fileID: 7304492346053886873}
+  - component: {fileID: 6615780722776017627}
   m_Layer: 0
   m_Name: down
   m_TagString: Down
@@ -456,6 +475,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6615780722776017627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150372481060777686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e437ab2c3485ba947b4e13c56ff105ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphere: {fileID: 7752743240271454225}
+  sameCol: 0
+  gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
+  bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &2775003984523857797
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,3 +600,4 @@ MonoBehaviour:
   sphere: {fileID: 7752743240271454225}
   sameCol: 0
   gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
+  bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}

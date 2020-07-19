@@ -6,7 +6,6 @@ public class Gameplay : MonoBehaviour
 {
     public Sphere sphere = new Sphere();
     private System.Random rnd = new System.Random();
-    public Sphere[,] spheres = new Sphere[16,10];
     void Start()
     {
         StartCoroutine(Starter());
@@ -15,7 +14,6 @@ public class Gameplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
     IEnumerator Starter()
     {

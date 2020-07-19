@@ -11,6 +11,8 @@ TagManager:
   - Left
   - Up
   - Down
+  - Bullet
+  - Wall
   layers:
   - Default
   - TransparentFX
