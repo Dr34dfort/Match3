@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(new Vector3(X, Y, 0) * Time.deltaTime);
         endX = transform.position.x;
         endY = transform.position.y;
-        if (Mathf.Sqrt(Mathf.Pow((endX - startX),2) + Mathf.Pow((endY - startY),2)) > 0.9f)
+        if (Mathf.Sqrt(Mathf.Pow((endX - startX),2) + Mathf.Pow((endY - startY),2)) >= 2)
         {
             Destroy(this.gameObject);
         }

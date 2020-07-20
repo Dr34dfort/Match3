@@ -4,10 +4,40 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
-    public Sphere sphere = new Sphere();
+    public Sphere sphere;
     private System.Random rnd = new System.Random();
+    public int[,] colorMap;
     void Start()
     {
+
+        colorMap = new int[16, 10];
+        for (int i = 0; i < 16; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                colorMap[i, j] = (int)Mathf.Round(Random.Range(1, 6));
+                if (j >= 2)
+                {
+                    if (colorMap[i, j] == colorMap[i, j - 1] && colorMap[i, j] == colorMap[i, j - 2])
+                    {
+                        while (colorMap[i, j] == colorMap[i, j - 1])
+                        {
+                            colorMap[i, j] = (int)Mathf.Round(Random.Range(1, 6));
+                        }
+                    }
+                }
+                if (i >= 2)
+                {
+                    if (colorMap[i, j] == colorMap[i - 1, j] && colorMap[i, j] == colorMap[i - 2, j])
+                    {
+                        while (colorMap[i, j] == colorMap[i - 1, j])
+                        {
+                            colorMap[i, j] = (int)Mathf.Round(Random.Range(1, 6));
+                        }
+                    }
+                }
+            }
+        }
         StartCoroutine(Starter());
     }
 
@@ -17,12 +47,14 @@ public class Gameplay : MonoBehaviour
     }
     IEnumerator Starter()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 16; i++)
         {
-            for (int j = 0; j < 16; j++)
+            for (int j = 0; j < 10; j++)
             {
                 yield return new WaitForSeconds(0.1f);
-                Sphere basis = Instantiate(sphere, new Vector3(j, i+11, 0), Quaternion.identity) as Sphere;
+                Sphere basis = Instantiate(sphere, new Vector3(i, j+11, 0), Quaternion.identity) as Sphere;
+                basis.color = colorMap[i,j];
+                //basis.color = (int)Mathf.Round(Random.Range(1, 6));
             }
         }
     }

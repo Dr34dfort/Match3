@@ -29,7 +29,6 @@ public class Sphere : MonoBehaviour
     public Gameplay gp = new Gameplay();
     void Start()
     {
-        color = (int)Mathf.Round(Random.Range(1, 6));
         Material mat = Resources.Load("color"+color, typeof(Material)) as Material;
         gameObject.GetComponent<MeshRenderer>().material = mat;
         started = true;

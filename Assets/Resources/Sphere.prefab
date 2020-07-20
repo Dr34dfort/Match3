@@ -107,7 +107,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157060070385533164}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4508d09afa4e4b5468f68c6859e4889d, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -133,7 +133,6 @@ MonoBehaviour:
   started: 0
   chainCountHorizontal: 0
   chainCountVertical: 0
-  vect: {x: 0, y: 0, z: 0}
   grounded: 0
   rb: {fileID: 2123837655407629116}
   vel: 0
@@ -268,7 +267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 7752743240271454225}
-  sameCol: 0
   gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
   bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &919189933629296029
@@ -378,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 7752743240271454225}
-  sameCol: 0
   gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
   bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &1150372481060777686
@@ -488,7 +485,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 7752743240271454225}
-  sameCol: 0
   gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
   bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &2775003984523857797
@@ -598,6 +594,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 7752743240271454225}
-  sameCol: 0
   gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
   bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
