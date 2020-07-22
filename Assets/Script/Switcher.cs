@@ -5,10 +5,9 @@ using UnityEngine;
 public class Switcher : MonoBehaviour
 {
     public int color;
-    public Sphere sphere = new Sphere();
+    public Sphere sphere;
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -31,5 +30,13 @@ public class Switcher : MonoBehaviour
             this.transform.position = new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z);
             this.gameObject.SetActive(false);
         }
+        else
+        {
+            this.transform.position = new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        //this.transform.position = new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z);
     }
 }

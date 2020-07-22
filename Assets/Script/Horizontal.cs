@@ -6,8 +6,8 @@ using UnityEngine;
 public class Horizontal : MonoBehaviour
 {
     public Sphere sphere;
-    public Gameplay gp = new Gameplay();
-    public Bullet bullet = new Bullet();
+    public Gameplay gp;
+    public Bullet bullet;
     void Start()
     {
     }
@@ -19,6 +19,7 @@ public class Horizontal : MonoBehaviour
         sphere.chainCountHorizontal = sphere.chainedSpheres.Count;
         if (sphere.chainCountHorizontal >= 2)
         {
+
             Bullet bulletR = Instantiate(bullet, new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z), Quaternion.identity);
             bulletR.color = sphere.color;
             bulletR.X = 10;
@@ -35,7 +36,11 @@ public class Horizontal : MonoBehaviour
             other.GetComponent<Sphere>().Checker();
         }
     }
-    public void OnTriggerExit(Collider other)
+    public void OnTriggerStay(Collider other)
     {
+        if (other.tag == "Sphere" && sphere.color == other.GetComponent<Sphere>().color && Mathf.Abs(other.GetComponent<Sphere>().vel) <= 0.1f && sphere.chainCountVertical>=2)
+        {
+            other.GetComponent<Sphere>().Checker();
+        }
     }
 }

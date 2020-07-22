@@ -5,8 +5,8 @@ using UnityEngine;
 public class Vertical : MonoBehaviour
 {
     public Sphere sphere;
-    public Gameplay gp = new Gameplay();
-    public Bullet bullet = new Bullet();
+    public Gameplay gp;
+    public Bullet bullet;
     void Start()
     {
     }
@@ -34,7 +34,11 @@ public class Vertical : MonoBehaviour
             other.GetComponent<Sphere>().Checker2();
         }
     }
-    public void OnTriggerExit(Collider other)
+    public void OnTriggerStay(Collider other)
     {
+        if (other.tag == "Sphere" && sphere.color == other.GetComponent<Sphere>().color && Mathf.Abs(other.GetComponent<Sphere>().vel) <= 0.1f && sphere.chainCountHorizontal >= 2)
+        {
+            other.GetComponent<Sphere>().Checker2();
+        }
     }
 }

@@ -5,11 +5,13 @@ using UnityEngine;
 public class Gameplay : MonoBehaviour
 {
     public Sphere sphere;
-    private System.Random rnd = new System.Random();
+    private System.Random rnd;
     public int[,] colorMap;
-    private int s = 0;
+    private int s;
     void Start()
     {
+        rnd = new System.Random();
+        s = 0;
         colorMap = new int[16, 10];
         for (int i = 0; i < 16; i++)
         {

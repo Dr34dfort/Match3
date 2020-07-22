@@ -6,13 +6,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int color;
-    public int X = 0;
-    public int Y = 0;
-    private float startX = 0;
-    private float startY = 0;
-    private float endX = 0;
-    private float endY = 0;
-    public Sphere sphere = new Sphere();
+    public int X;
+    public int Y;
+    private float startX;
+    private float startY;
+    private float endX;
+    private float endY;
+    public Sphere sphere;
     void Start()
     {
         startX = transform.position.x;
