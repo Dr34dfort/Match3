@@ -7,9 +7,9 @@ public class Gameplay : MonoBehaviour
     public Sphere sphere;
     private System.Random rnd = new System.Random();
     public int[,] colorMap;
+    private int s = 0;
     void Start()
     {
-
         colorMap = new int[16, 10];
         for (int i = 0; i < 16; i++)
         {
@@ -52,10 +52,12 @@ public class Gameplay : MonoBehaviour
             for (int j = 0; j < 10; j++)
             {
                 yield return new WaitForSeconds(0.1f);
-                Sphere basis = Instantiate(sphere, new Vector3(i, j+11, 0), Quaternion.identity) as Sphere;
+                Sphere basis = Instantiate(sphere, new Vector3(i, j+11+s, 0), Quaternion.identity) as Sphere;
                 basis.color = colorMap[i,j];
+                s++;
                 //basis.color = (int)Mathf.Round(Random.Range(1, 6));
             }
+            s = 0;
         }
     }
 }

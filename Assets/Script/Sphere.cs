@@ -27,16 +27,23 @@ public class Sphere : MonoBehaviour
     public int coordX = 0;
     public int coordY = 0;
     public Gameplay gp = new Gameplay();
+    public float StartX=0;
+    public float StartY=0;
+    public float EndX=0;
+    public float EndY=0;
+    public GameObject switcher = new GameObject();
     void Start()
     {
-        Material mat = Resources.Load("color"+color, typeof(Material)) as Material;
-        gameObject.GetComponent<MeshRenderer>().material = mat;
+        switcher.SetActive(false);
+        ColorChange();
         started = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Material mat = Resources.Load("color" + color, typeof(Material)) as Material;
+        gameObject.GetComponent<MeshRenderer>().material = mat;
         coordX = Mathf.RoundToInt(this.transform.position.x);
         coordY = Mathf.RoundToInt(this.transform.position.y);
         vel = Mathf.Round(rb.velocity.y);
@@ -63,7 +70,7 @@ public class Sphere : MonoBehaviour
     }
     public void Checker()
     {
-        if (chained == false)
+        /*if (chained == false)
         {
             right.SetActive(false);
             left.SetActive(false);
@@ -71,7 +78,13 @@ public class Sphere : MonoBehaviour
             this.GetComponent<Sphere>().chainedSpheres.RemoveAll(x => x == null);
             this.GetComponent<Sphere>().chainCountHorizontal = 0;
             Wait();
-        }
+        }*/
+        right.SetActive(false);
+        left.SetActive(false);
+        this.GetComponent<Sphere>().chainedSpheres.Clear();
+        this.GetComponent<Sphere>().chainedSpheres.RemoveAll(x => x == null);
+        this.GetComponent<Sphere>().chainCountHorizontal = 0;
+        Wait();
     }
     IEnumerator Wait()
     {
@@ -81,7 +94,7 @@ public class Sphere : MonoBehaviour
     }
     public void Checker2()
     {
-        if (chained2 == false)
+        /*if (chained2 == false)
         {
             up.SetActive(false);
             down.SetActive(false);
@@ -89,7 +102,13 @@ public class Sphere : MonoBehaviour
             this.GetComponent<Sphere>().chainedSpheres2.RemoveAll(x => x == null);
             this.GetComponent<Sphere>().chainCountVertical = 0;
             Wait2();
-        }
+        }*/
+        up.SetActive(false);
+        down.SetActive(false);
+        this.GetComponent<Sphere>().chainedSpheres2.Clear();
+        this.GetComponent<Sphere>().chainedSpheres2.RemoveAll(x => x == null);
+        this.GetComponent<Sphere>().chainCountVertical = 0;
+        Wait2();
     }
     IEnumerator Wait2()
     {
@@ -99,9 +118,52 @@ public class Sphere : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag=="Bullet" && (other.GetComponent<Bullet>().color == color))
+        /*if (other.tag=="Bullet" && (other.GetComponent<Bullet>().color == color))
         {
             Destroy(this.gameObject);
+        }*/
+    }
+    private void OnMouseDown()
+    {
+        StartX = Input.mousePosition.x;
+        StartY = Input.mousePosition.y;
+    }
+    private void OnMouseUp()
+    {
+        EndX = Input.mousePosition.x;
+        EndY = Input.mousePosition.y;
+        if (StartX != EndX || StartY != EndY) Switch();
+    }
+    private void Switch()
+    {
+        switcher.GetComponent<Switcher>().color = color;
+        if (Mathf.Abs(EndX - StartX) > Mathf.Abs(EndY - StartY))
+        {
+            if (EndX - StartX > 0)
+            {
+                switcher.transform.position = new Vector3(this.transform.position.x + 1, this.transform.position.y, this.transform.position.z);
+            }
+            else
+            {
+                switcher.transform.position = new Vector3(this.transform.position.x - 1, this.transform.position.y, this.transform.position.z);
+            }
         }
+        else
+        {
+            if (EndY - StartY > 0)
+            {
+                switcher.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
+            }
+            else
+            {
+                switcher.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 1, this.transform.position.z);
+            }
+        }
+        switcher.SetActive(true);
+    }
+    public void ColorChange()
+    {
+        Material mat = Resources.Load("color" + color, typeof(Material)) as Material;
+        gameObject.GetComponent<MeshRenderer>().material = mat;
     }
 }
