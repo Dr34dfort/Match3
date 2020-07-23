@@ -1,17 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.WSA.Input;
 
 public class Gameplay : MonoBehaviour
 {
     public Sphere sphere;
     private System.Random rnd;
     public int[,] colorMap;
-    private int s;
+    public CheckPillar checkPillar;
+    public List<Sphere> spheres;
+    public List<CheckPillar> pillars;
+    public bool started;
+    public int scores;
     void Start()
     {
+        scores = 0;
+        started = false;
+        spheres = new List<Sphere>();
+        pillars = new List<CheckPillar>();
+        for (int i = 0; i < 16; i++)
+        {
+            CheckPillar pillar = Instantiate(checkPillar, new Vector3(i, 4.5f, 0), Quaternion.identity) as CheckPillar;
+            pillars.Add(pillar);
+            pillars[i].row = i;
+            pillars[i].gameObject.SetActive(false);
+        }
         rnd = new System.Random();
-        s = 0;
         colorMap = new int[16, 10];
         for (int i = 0; i < 16; i++)
         {
@@ -42,10 +57,25 @@ public class Gameplay : MonoBehaviour
         }
         StartCoroutine(Starter());
     }
-
-    // Update is called once per frame
     void Update()
     {
+        spheres.RemoveAll(x => x == null);
+        if (spheres.Count < 160 && started == true)
+        {
+            for (int i=0; i < 16; i++)
+            {
+                pillars[i].gameObject.SetActive(true);
+            }
+        }
+        else if (spheres.Count >= 160)
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                pillars[i].spheres.Clear();
+                pillars[i].spheres.RemoveAll(x => x == null);
+                pillars[i].gameObject.SetActive(false);
+            }
+        }
     }
     IEnumerator Starter()
     {
@@ -54,12 +84,21 @@ public class Gameplay : MonoBehaviour
             for (int j = 0; j < 10; j++)
             {
                 yield return new WaitForSeconds(0.1f);
-                Sphere basis = Instantiate(sphere, new Vector3(i, j+11+s, 0), Quaternion.identity) as Sphere;
+                Sphere basis = Instantiate(sphere, new Vector3(i, j+11, 0), Quaternion.identity) as Sphere;
+                spheres.Add(basis);
                 basis.color = colorMap[i,j];
-                s++;
-                //basis.color = (int)Mathf.Round(Random.Range(1, 6));
             }
-            s = 0;
+            
+        }
+        started = true;
+    }
+    public void CreateSpheres(int row, int count)
+    {
+        for (int i=0;i<10-count;i++)
+        {
+            Sphere basis = Instantiate(sphere, new Vector3(row, 21+i, 0), Quaternion.identity) as Sphere;
+            spheres.Add(basis);
+            basis.color = (int)Mathf.Round(Random.Range(1, 6));
         }
     }
 }

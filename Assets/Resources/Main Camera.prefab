@@ -97,3 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 7752743240271454225, guid: 501b61fa0918cf743bea66f3e528f16d, type: 3}
+  checkPillar: {fileID: -5706054018607127115, guid: 94aea89b301080f4daae196ed3ca7501,
+    type: 3}
+  spheres: []
+  pillars: []
+  started: 0

@@ -13,13 +13,13 @@ public class Bullet : MonoBehaviour
     private float endX;
     private float endY;
     public Sphere sphere;
+    public GameObject explosion;
+    public GameObject gp;
     void Start()
     {
         startX = transform.position.x;
         startY = transform.position.y;
     }
-
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(new Vector3(X, Y, 0) * Time.deltaTime);
@@ -42,6 +42,9 @@ public class Bullet : MonoBehaviour
             }
             else if (other.GetComponent<Sphere>().color == color)
             {
+                gp.GetComponent<Gameplay>().scores += 100;
+                Debug.Log(gp.GetComponent<Gameplay>().scores);
+                GameObject expl = Instantiate(explosion, new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z), Quaternion.identity) as GameObject;
                 Destroy(other.gameObject);
             }
         }

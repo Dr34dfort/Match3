@@ -29,6 +29,7 @@ public class Sphere : MonoBehaviour
     public float EndX;
     public float EndY;
     public GameObject switcher;
+    public Bullet bullet;
     void Start()
     {
         vel = 0;
@@ -52,7 +53,7 @@ public class Sphere : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         Material mat = Resources.Load("color" + color, typeof(Material)) as Material;
         gameObject.GetComponent<MeshRenderer>().material = mat;
         coordX = Mathf.RoundToInt(this.transform.position.x);
@@ -146,17 +147,42 @@ public class Sphere : MonoBehaviour
             }
         }
         switcher.SetActive(true);
-        SwitcherBack();
+        StartX = 0;
+        StartY = 0;
+        EndX = 0;
+        EndY = 0;
+        StartCoroutine(Wait3());
+    }
+    IEnumerator Wait3()
+    {
+        yield return new WaitForSeconds(0.2f);
+        switcher.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
     }
     public void ColorChange()
     {
         Material mat = Resources.Load("color" + color, typeof(Material)) as Material;
         gameObject.GetComponent<MeshRenderer>().material = mat;
     }
-    IEnumerator SwitcherBack()
+    public void Destruct()
     {
-        yield return new WaitForSeconds(0.1f);
-        switcher.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 1, this.transform.position.z);
-        switcher.SetActive(false);
+        if (chainCountHorizontal >= 2)
+        {
+
+            Bullet bulletR = Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            bulletR.color = color;
+            bulletR.X = 10;
+            Bullet bulletL = Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            bulletL.color = color;
+            bulletL.X = -10;
+        }
+        if (chainCountVertical >= 2)
+        {
+            Bullet bulletU = Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            bulletU.color = color;
+            bulletU.Y = 10;
+            Bullet bulletD = Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            bulletD.color = color;
+            bulletD.Y = -10;
+        }
     }
 }

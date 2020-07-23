@@ -18,12 +18,7 @@ public class Vertical : MonoBehaviour
         sphere.chainCountVertical = sphere.chainedSpheres2.Count;
         if (sphere.chainCountVertical >= 2)
         {
-            Bullet bulletU = Instantiate(bullet, new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z), Quaternion.identity);
-            bulletU.color = sphere.color;
-            bulletU.Y = 10;
-            Bullet bulletD = Instantiate(bullet, new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z), Quaternion.identity);
-            bulletD.color = sphere.color;
-            bulletD.Y = -10;
+            sphere.Destruct();
         }
     }
     public void OnTriggerEnter(Collider other)

@@ -19,13 +19,7 @@ public class Horizontal : MonoBehaviour
         sphere.chainCountHorizontal = sphere.chainedSpheres.Count;
         if (sphere.chainCountHorizontal >= 2)
         {
-
-            Bullet bulletR = Instantiate(bullet, new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z), Quaternion.identity);
-            bulletR.color = sphere.color;
-            bulletR.X = 10;
-            Bullet bulletL = Instantiate(bullet, new Vector3(sphere.transform.position.x, sphere.transform.position.y, sphere.transform.position.z), Quaternion.identity);
-            bulletL.color = sphere.color;
-            bulletL.X = -10;
+            sphere.Destruct();
         }
     }
     public void OnTriggerEnter(Collider other)
