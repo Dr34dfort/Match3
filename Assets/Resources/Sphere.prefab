@@ -144,7 +144,7 @@ MonoBehaviour:
   gotChecked: 0
   coordX: 0
   coordY: 0
-  gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
+  gp: {fileID: 8581480375968637099, guid: d5be8d084a7a1f246aaadeabb96352fb, type: 3}
   StartX: 0
   StartY: 0
   EndX: 0
@@ -216,7 +216,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169535663679080443}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 7752743240271454225}
-  gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
+  gp: {fileID: 8581480375968637099, guid: d5be8d084a7a1f246aaadeabb96352fb, type: 3}
   bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &919189933629296029
 GameObject:
@@ -325,7 +325,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919189933629296029}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 7752743240271454225}
-  gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
+  gp: {fileID: 8581480375968637099, guid: d5be8d084a7a1f246aaadeabb96352fb, type: 3}
   bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &1150372481060777686
 GameObject:
@@ -434,7 +434,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150372481060777686}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 7752743240271454225}
-  gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
+  gp: {fileID: 8581480375968637099, guid: d5be8d084a7a1f246aaadeabb96352fb, type: 3}
   bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &2775003984523857797
 GameObject:
@@ -543,7 +543,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2775003984523857797}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 7752743240271454225}
-  gp: {fileID: 7535555060742093871, guid: ba6272232287399488fdd551758866e8, type: 3}
+  gp: {fileID: 8581480375968637099, guid: d5be8d084a7a1f246aaadeabb96352fb, type: 3}
   bullet: {fileID: 8281187485829234544, guid: d9e7865809198834c8398916488aad19, type: 3}
 --- !u!1 &7054021772591250132
 GameObject:
@@ -652,7 +652,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7054021772591250132}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

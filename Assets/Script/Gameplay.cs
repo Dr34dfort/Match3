@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.XR.WSA.Input;
 
 public class Gameplay : MonoBehaviour
@@ -12,23 +13,21 @@ public class Gameplay : MonoBehaviour
     public List<Sphere> spheres;
     public List<CheckPillar> pillars;
     public bool started;
-    public int scores;
     void Start()
     {
-        scores = 0;
         started = false;
         spheres = new List<Sphere>();
         pillars = new List<CheckPillar>();
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 10; i++)
         {
-            CheckPillar pillar = Instantiate(checkPillar, new Vector3(i, 4.5f, 0), Quaternion.identity) as CheckPillar;
+            CheckPillar pillar = Instantiate(checkPillar, new Vector3(2.5f+i, 4.5f, 0), Quaternion.identity) as CheckPillar;
             pillars.Add(pillar);
             pillars[i].row = i;
             pillars[i].gameObject.SetActive(false);
         }
         rnd = new System.Random();
-        colorMap = new int[16, 10];
-        for (int i = 0; i < 16; i++)
+        colorMap = new int[10, 10];
+        for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
@@ -60,16 +59,16 @@ public class Gameplay : MonoBehaviour
     void Update()
     {
         spheres.RemoveAll(x => x == null);
-        if (spheres.Count < 160 && started == true)
+        if (spheres.Count < 100 && started == true)
         {
-            for (int i=0; i < 16; i++)
+            for (int i=0; i < 10; i++)
             {
                 pillars[i].gameObject.SetActive(true);
             }
         }
-        else if (spheres.Count >= 160)
+        else if (spheres.Count >= 100)
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 10; i++)
             {
                 pillars[i].spheres.Clear();
                 pillars[i].spheres.RemoveAll(x => x == null);
@@ -79,12 +78,12 @@ public class Gameplay : MonoBehaviour
     }
     IEnumerator Starter()
     {
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 yield return new WaitForSeconds(0.1f);
-                Sphere basis = Instantiate(sphere, new Vector3(i, j+11, 0), Quaternion.identity) as Sphere;
+                Sphere basis = Instantiate(sphere, new Vector3(2.5f+i, j+11, 0), Quaternion.identity) as Sphere;
                 spheres.Add(basis);
                 basis.color = colorMap[i,j];
             }
@@ -94,11 +93,8 @@ public class Gameplay : MonoBehaviour
     }
     public void CreateSpheres(int row, int count)
     {
-        for (int i=0;i<10-count;i++)
-        {
-            Sphere basis = Instantiate(sphere, new Vector3(row, 21+i, 0), Quaternion.identity) as Sphere;
-            spheres.Add(basis);
-            basis.color = (int)Mathf.Round(Random.Range(1, 6));
-        }
+        Sphere basis = Instantiate(sphere, new Vector3(2.5f + row, 11+count, 0), Quaternion.identity) as Sphere;
+        spheres.Add(basis);
+        basis.color = (int)Mathf.Round(Random.Range(1, 6));
     }
 }

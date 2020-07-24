@@ -42,8 +42,7 @@ public class Bullet : MonoBehaviour
             }
             else if (other.GetComponent<Sphere>().color == color)
             {
-                gp.GetComponent<Gameplay>().scores += 100;
-                Debug.Log(gp.GetComponent<Gameplay>().scores);
+
                 GameObject expl = Instantiate(explosion, new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z), Quaternion.identity) as GameObject;
                 Destroy(other.gameObject);
             }
