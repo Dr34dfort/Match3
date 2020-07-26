@@ -15,6 +15,7 @@ TagManager:
   - Wall
   - Switcher
   - Sensor
+  - Score
   layers:
   - Default
   - TransparentFX

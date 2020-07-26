@@ -24,10 +24,6 @@ public class Switcher : MonoBehaviour
             other.GetComponent<Sphere>().color = color;
             other.GetComponent<Sphere>().ColorChange();
             color = sphere.color;
-            sphere.Checker();
-            sphere.Checker2();
-            other.GetComponent<Sphere>().Checker();
-            other.GetComponent<Sphere>().Checker2();
             StartCoroutine(Wait(other));
         }
     }

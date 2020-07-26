@@ -8,7 +8,7 @@ public class StartGame : MonoBehaviour
     void Start()
     {
         AudioListener.volume = 1;
-        GameObject gp = Instantiate(GameController, new Vector3(0, -4.5f, 0), Quaternion.identity) as GameObject;
+        GameObject gp = Instantiate(GameController, new Vector3(14.5f, 8.27f, -5.01f), Quaternion.identity) as GameObject;
     }
 
     // Update is called once per frame
@@ -21,4 +21,5 @@ public class StartGame : MonoBehaviour
         if (toggle == true) AudioListener.volume = 1;
         else AudioListener.volume = 0;
     }
+    //GameObject gp = Instantiate(GameController, new Vector3(15.754f, 8.27f, -5.01f), Quaternion.identity) as GameObject;
 }
