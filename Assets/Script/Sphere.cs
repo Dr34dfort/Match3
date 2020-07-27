@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class Sphere : MonoBehaviour
 {
     public int color;
-    public bool started;
+    //public bool started;
     public bool grounded;
     public Rigidbody rb;
     public float vel;
@@ -19,10 +19,11 @@ public class Sphere : MonoBehaviour
     public float EndY;
     public GameObject switcher;
     public Bullet bullet;
+    public int state;
     void Start()
     {
         vel = 0;
-        started = false;
+        //started = false;
         grounded = false;
         coordX = 0;
         coordY = 0;
@@ -52,7 +53,7 @@ public class Sphere : MonoBehaviour
     {
         EndX = Input.mousePosition.x;
         EndY = Input.mousePosition.y;
-        if ((StartX != EndX || StartY != EndY) && started == true) Switch();
+        if ((StartX != EndX || StartY != EndY) && state == 0) Switch();
     }
     private void Switch()
     {
@@ -84,7 +85,7 @@ public class Sphere : MonoBehaviour
         StartY = 0;
         EndX = 0;
         EndY = 0;
-        gp.GetComponent<Gameplay>().started = false;
+        //gp.GetComponent<Gameplay>().state = 1;
         StartCoroutine(Wait3());
     }
     IEnumerator Wait3()

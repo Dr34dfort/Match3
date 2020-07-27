@@ -111,3 +111,6 @@ MonoBehaviour:
   count: 0
   row: 0
   gp: {fileID: 836363827393487756, guid: d5be8d084a7a1f246aaadeabb96352fb, type: 3}
+  score: 0
+  state: 0
+  a: 0
