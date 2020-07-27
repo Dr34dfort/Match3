@@ -45,6 +45,7 @@ public class Gameplay : MonoBehaviour
         started = false;
         help = new List<Sphere>();
         pillars = new List<CheckPillar>();
+        //Здесь создаются столбы. Они жизненно необходимы для работы игры, благодаря ним создается матрица сфер и подсчитываются очки.
         for (int i = 0; i < 10; i++)
         {
             CheckPillar pillar = Instantiate(checkPillar, new Vector3(2.5f+i, 4.5f, 0), Quaternion.identity) as CheckPillar;
@@ -60,6 +61,7 @@ public class Gameplay : MonoBehaviour
     }
     void Update()
     {
+        //Условия победы и поражения
         if (score >= 4000 && timer>0)
         {
             text.GetComponent<Text>().text = "Поздравляю! Вы победили!";
@@ -71,6 +73,7 @@ public class Gameplay : MonoBehaviour
             started = false;
         }
         turnCount.turn = turn;
+        
         for (int i=0;i<10;i++)
         {
             pillars[i].started = started;
@@ -93,8 +96,10 @@ public class Gameplay : MonoBehaviour
                     }
                 }
             }
+            //state - это состояния. 0 - готов, 1 - ожидание, 2 - обработка подсказки
             if (state < 2)
             {
+                //эта функция отвечает за взаимодействия сфер. Их уничтожение.
                 SphereChecker();
             }
             if (state == 0)
@@ -122,8 +127,10 @@ public class Gameplay : MonoBehaviour
             }
             if (state == 2)
             {
+                //Вычисление положения сфер, которые могут образовать линию.
                 CheckAndRespawn();
             }
+            //Вывод подсказки по истечении времени
             if (timer >= 5)
             {
                 aim1.transform.position = new Vector3(help[0].transform.position.x, help[0].transform.position.y, help[0].transform.position.z - 1);
@@ -142,6 +149,7 @@ public class Gameplay : MonoBehaviour
     }
     IEnumerator Starter()
     {
+        //Создание 100 сфер в самом начале
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
@@ -511,6 +519,7 @@ public class Gameplay : MonoBehaviour
     }
     private void NewSpawn()
     {
+        //Эта функция на случай, если следующий ход невозможен. Еще не разу не было такой ситуации.
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < pillars[i].spheres.Count; j++)
