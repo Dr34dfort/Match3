@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 using UnityEngine.XR.WSA.Input;
 
 public class Gameplay : MonoBehaviour
@@ -18,20 +19,22 @@ public class Gameplay : MonoBehaviour
     public Sphere[,] spheres;
     public int a;
     public ScoreCount scoreCount;
+    public Turns turnCount;
     public int b;
     public List<Sphere> help;
     public GameObject aim1;
     public GameObject aim2;
     public GameObject aim3;
-    private int timer;
+    public GameObject text;
+    public GameObject text2;
+    public int timer;
     public int state;
-    private int c;
-    private int index1;
-    private int index2;
+    public int turn;
     void Start()
     {
-        index1 = 0;
-        index2 = 0;
+        text2.GetComponent<Text>().enabled = true;
+        text.GetComponent<Text>().text = "";
+        turn = 360;
         timer = 0;
         aim1.GetComponent<MeshRenderer>().enabled = false;
         aim2.GetComponent<MeshRenderer>().enabled = false;
@@ -44,7 +47,7 @@ public class Gameplay : MonoBehaviour
         pillars = new List<CheckPillar>();
         for (int i = 0; i < 10; i++)
         {
-            CheckPillar pillar = Instantiate(checkPillar, new Vector3(2.5f+i, 5, 0), Quaternion.identity) as CheckPillar;
+            CheckPillar pillar = Instantiate(checkPillar, new Vector3(2.5f+i, 4.5f, 0), Quaternion.identity) as CheckPillar;
             pillars.Add(pillar);
             pillars[i].row = i;
         }
@@ -52,13 +55,30 @@ public class Gameplay : MonoBehaviour
         colorMap = new int[10, 10];
         Spawn();
         StartCoroutine(Starter());
+        StartCoroutine(Timer());
+        StartCoroutine(Tutorial());
     }
     void Update()
     {
+        if (score >= 4000 && timer>0)
+        {
+            text.GetComponent<Text>().text = "Поздравляю! Вы победили!";
+            started = false;
+        }
+        else if (score < 4000 && turn <= 0)
+        {
+            text.GetComponent<Text>().text = "Вы проиграли.";
+            started = false;
+        }
+        turnCount.turn = turn;
+        for (int i=0;i<10;i++)
+        {
+            pillars[i].started = started;
+        }
         if (started == true)
         {
             a = 1;
-            scoreCount.score = score;
+            scoreHelper = 0;
             for (int i = 0; i < 10; i++)
             {
                 scoreHelper += pillars[i].score;
@@ -75,30 +95,14 @@ public class Gameplay : MonoBehaviour
             }
             if (state < 2)
             {
-                /*for (int i = 0; i < 10; i++)
-                {
-                    for (int j = 0; j < pillars[i].spheres.Count; j++)
-                    {
-                        SphereChecker(i, j);
-                    }
-                    for (int j = 0; j < pillars[i].spheres.Count; j++)
-                    {
-                        for (int k = 0; k < pillars[i].spheres.Count; k++)
-                        {
-                            if (pillars[i].spheres[k].coordY == j)
-                            {
-                                spheres[i, j] = pillars[i].spheres[k];
-                            }
-                        }
-                    }
-                }*/
                 SphereChecker();
             }
             if (state == 0)
             {
                 score = scoreHelper;
-                scoreHelper = 0;
+                StartCoroutine(WaitBeforeHelp());
             }
+            scoreCount.score = score;
             for (int i = 0; i < 10; i++)
             {
                 pillars[i].state = state;
@@ -156,12 +160,12 @@ public class Gameplay : MonoBehaviour
     {
         for (int x = 0; x < 10; x++)
         {
-            for (int i = pillars[x].spheres.Count;i<10;i++)
-            {
-                if (i<10) spheres[x,i] = null;
-            }
             for (int y = 0; y < pillars[x].spheres.Count; y++)
             {
+                for (int i = pillars[x].spheres.Count; i < 10; i++)
+                {
+                    if (i < 10) spheres[x, i] = null;
+                }
                 if ((x >= 1) && (x <= 8))
                 {
                     if (spheres[x, y] != null && spheres[x+1, y] != null && spheres[x-1, y] != null)
@@ -171,6 +175,10 @@ public class Gameplay : MonoBehaviour
                             if (Mathf.Abs(spheres[x, y].vel) <= 0.1f && Mathf.Abs(spheres[x + 1, y].vel) <= 0.1f && Mathf.Abs(spheres[x - 1, y].vel) <= 0.1f)
                             {
                                 spheres[x, y].DestructHorizontal();
+                                for (int i = pillars[x].spheres.Count; i < 10; i++)
+                                {
+                                    if (i < 10) spheres[x, i] = null;
+                                }
                             }
                         }
                     }
@@ -184,6 +192,10 @@ public class Gameplay : MonoBehaviour
                             if (Mathf.Abs(spheres[x, y].vel) <= 0.1f && Mathf.Abs(spheres[x, y + 1].vel) <= 0.1f && Mathf.Abs(spheres[x, y - 1].vel) <= 0.1f)
                             {
                                 spheres[x, y].DestructVertical();
+                                for (int i = pillars[x].spheres.Count; i < 10; i++)
+                                {
+                                    if (i < 10) spheres[x, i] = null;
+                                }
                             }
                         }
                     }
@@ -197,6 +209,10 @@ public class Gameplay : MonoBehaviour
                             if (Mathf.Abs(spheres[x, y].vel) <= 0.1f && Mathf.Abs(spheres[x + 1, y].vel) <= 0.1f && Mathf.Abs(spheres[x + 2, y].vel) <= 0.1f)
                             {
                                 spheres[x, y].DestructHorizontal();
+                                for (int i = pillars[x].spheres.Count; i < 10; i++)
+                                {
+                                    if (i < 10) spheres[x, i] = null;
+                                }
                             }
                         }
                     }
@@ -210,6 +226,10 @@ public class Gameplay : MonoBehaviour
                             if (Mathf.Abs(spheres[x, y].vel) <= 0.1f && Mathf.Abs(spheres[x - 1, y].vel) <= 0.1f && Mathf.Abs(spheres[x - 2, y].vel) <= 0.1f)
                             {
                                 spheres[x, y].DestructHorizontal();
+                                for (int i = pillars[x].spheres.Count; i < 10; i++)
+                                {
+                                    if (i < 10) spheres[x, i] = null;
+                                }
                             }
                         }
                     }
@@ -223,6 +243,10 @@ public class Gameplay : MonoBehaviour
                             if (Mathf.Abs(spheres[x, y].vel) <= 0.1f && Mathf.Abs(spheres[x, y + 1].vel) <= 0.1f && Mathf.Abs(spheres[x, y + 2].vel) <= 0.1f)
                             {
                                 spheres[x, y].DestructVertical();
+                                for (int i = pillars[x].spheres.Count; i < 10; i++)
+                                {
+                                    if (i < 10) spheres[x, i] = null;
+                                }
                             }
                         }
                     }
@@ -236,6 +260,10 @@ public class Gameplay : MonoBehaviour
                             if (Mathf.Abs(spheres[x, y].vel) <= 0.1f && Mathf.Abs(spheres[x, y - 1].vel) <= 0.1f && Mathf.Abs(spheres[x, y - 2].vel) <= 0.1f)
                             {
                                 spheres[x, y].DestructVertical();
+                                for (int i = pillars[x].spheres.Count; i < 10; i++)
+                                {
+                                    if (i < 10) spheres[x, i] = null;
+                                }
                             }
                         }
                     }
@@ -472,11 +500,7 @@ public class Gameplay : MonoBehaviour
                 }
             }
         }
-        if (b == 0)
-        {
-            Debug.Log("Есть возможность сделать ход");
-        }
-        else if (b == 1) Debug.Log("Нет возможности сделать ход");
+        if (b == 1) NewSpawn();
         state = 0;
         StartCoroutine(WaitBeforeHelp());
     }
@@ -484,5 +508,31 @@ public class Gameplay : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         timer++;
+    }
+    private void NewSpawn()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < pillars[i].spheres.Count; j++)
+            {
+                Destroy(spheres[i, j].gameObject);
+            }
+        }
+        started = false;
+        Spawn();
+        StartCoroutine(Starter());
+    }
+    IEnumerator Timer()
+    {
+        while (turn > 0)
+        {
+            yield return new WaitForSeconds(1);
+            turn--;
+        }
+    }
+    IEnumerator Tutorial()
+    {
+        yield return new WaitForSeconds(5);
+        text2.GetComponent<Text>().enabled = false;
     }
 }
