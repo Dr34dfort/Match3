@@ -8,10 +8,10 @@ public class Sphere : MonoBehaviour
     public int color;
     //public bool started;
     public bool grounded;
-    public Rigidbody rb;
     public float vel;
-    public int coordX;
-    public int coordY;
+    [SerializeField]
+    public int PillarY;
+    public int CoordY;
     public GameObject gp;
     public float StartX;
     public float StartY;
@@ -20,13 +20,11 @@ public class Sphere : MonoBehaviour
     public GameObject switcher;
     public Bullet bullet;
     public int state;
+    public bool IsStacked;
     void Start()
     {
-        vel = 0;
-        //started = false;
+        this.IsStacked = false;
         grounded = false;
-        coordX = 0;
-        coordY = 0;
         StartX=0;
         StartY=0;
         EndX=0;
@@ -37,12 +35,29 @@ public class Sphere : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
+        CoordY = (int)Mathf.Round(transform.position.y);
+        if (IsStacked == false)
+        {
+            transform.Translate(Vector3.down * Time.deltaTime * vel * 8);
+            vel = 1;
+        }
+        else if (IsStacked == true && transform.position.y > PillarY)
+        {
+            transform.Translate(Vector3.down * Time.deltaTime * vel * 8);
+            vel = 1;
+        }
+        else if (IsStacked == true && transform.position.y == PillarY)
+        {
+            vel = 0;
+        }
+        else if (IsStacked == true && transform.position.y < PillarY)
+        {
+            transform.position = new Vector3(transform.position.x, PillarY, transform.position.z);
+            vel = 0;
+        }
         Material mat = Resources.Load("color" + color, typeof(Material)) as Material;
         gameObject.GetComponent<MeshRenderer>().material = mat;
-        coordX = Mathf.RoundToInt(this.transform.position.x);
-        coordY = Mathf.RoundToInt(this.transform.position.y);
-        vel = Mathf.Round(rb.velocity.y);
     }
     private void OnMouseDown()
     {
@@ -85,7 +100,6 @@ public class Sphere : MonoBehaviour
         StartY = 0;
         EndX = 0;
         EndY = 0;
-        //gp.GetComponent<Gameplay>().state = 1;
         StartCoroutine(Wait3());
     }
     IEnumerator Wait3()

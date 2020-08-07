@@ -43,6 +43,7 @@ public class CheckPillar : MonoBehaviour
         for (int i=0;i<count;i++)
         {
             spheres[i].state = state;
+            spheres[i].PillarY = (int)Mathf.Round(i);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -52,6 +53,7 @@ public class CheckPillar : MonoBehaviour
             if (state == 1) score += 10;
             creation = false;
             spheres.Add(other.GetComponent<Sphere>());
+            other.GetComponent<Sphere>().IsStacked = true;
         }
     }
 }

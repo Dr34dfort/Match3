@@ -89,7 +89,7 @@ public class Gameplay : MonoBehaviour
                 {
                     for (int k=0;k < pillars[i].spheres.Count;k++)
                     {
-                        if (pillars[i].spheres[k].coordY==j)
+                        if (pillars[i].spheres[k].PillarY==j)
                         {
                             spheres[i, j] = pillars[i].spheres[k];
                         }
